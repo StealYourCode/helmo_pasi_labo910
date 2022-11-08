@@ -11,4 +11,4 @@ jobs:
         run: |
           docker build -t  my-python-app .
       - name: Start image
-        run: docker run -it  --rm --name my-running-app  my-python-app    
+        run: docker run  --rm --name my-running-app  my-python-app    

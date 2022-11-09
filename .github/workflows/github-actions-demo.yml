@@ -10,15 +10,12 @@ jobs:
       - name: Build Image
         run: |
           docker build -t  my-python-app .
-      - uses: Azure/container-scan@v0
-      
-        with:
-          image-name: my-python-app
     
       - uses: Azure/docker-login@v1
         with:
-          login-server: contoso.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+          login-server: hellolabo.azurecr.io
+          username: ${{ secrets.LABO_USER }}
+          password: ${{ secrets.LABO_PASS }}
 
-      - run: docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
+      - run: docker tag my-python-app hellolabo.azurecr.io/my-python-app
+      - run: docker push hellolabo.azurecr.io/my-python-app

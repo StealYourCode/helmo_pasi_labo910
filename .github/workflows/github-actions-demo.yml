@@ -10,5 +10,15 @@ jobs:
       - name: Build Image
         run: |
           docker build -t  my-python-app .
-      - name: Start image
-        run: docker run  --rm --name my-running-app  my-python-app    
+      - uses: Azure/container-scan@v0
+      
+        with:
+          image-name: my-python-app
+    
+      - uses: Azure/docker-login@v1
+        with:
+          login-server: contoso.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - run: docker push contoso.azurecr.io/k8sdemo:${{ github.sha }}
